@@ -17,13 +17,6 @@ profile({
 		"categories": ["video"]
 	},
 	{
-		"title": "SoundCloud",
-		"parser":"soundcloud",
-		"url":"https://soundcloud.com",
-		"subtitle": "Audio platform of shared music and sounds.",
-		"categories": ["audio"]
-	},
-	{
 		"title": "Flickr",
 		"parser":"flickr",
 		"url":"https://www.flickr.com/",
@@ -86,7 +79,7 @@ profile({
 		"url":"http://www.slavevoyages.org",
 		"subtitle": "Info on almost 36,000 slaving voyages that forcibly embarked over 10 million Africans for transport to the Americas between the sixteenth and nineteenth centuries.",
 		"categories": ["image"],
-		"thumbnail": "https://www.neh.gov/files/imagecache/neh_large/news/images/slavetrade2.jpg"
+		"thumbnail": "https://www.neh.gov/sites/default/files/inline-files/NEH-Preferred-Seal820.jpg"
 	},
 	{
 		"title": "USC Digital Library",
@@ -97,33 +90,10 @@ profile({
                 "thumbnail": "https://rossier.usc.edu/files/2011/11/usc-square-white.jpg"
 	},
 	{
-		"title": "University of Washington Libraries Digital Collections",
-		"parser":"contentdm",
-		"url":"http://digitalcollections.lib.washington.edu",
-		"subtitle": "This site features materials such as photographs, maps, newspapers, posters, reports and other media from the University of Washington Libraries, University of Washington Faculty and Departments, and organizations that have participated in partner projects with the UW Libraries. The collections emphasize rare and unique materials.",
-		"categories": ["image"],
-                "thumbnail": "https://pbs.twimg.com/profile_images/789187282922110976/Hj7x2uuw.jpg"
-	},
-	{
-		"title": "Callimachus",
-		"parser":"contentdm",
-		"url":"http://callimachus.org",
-		"subtitle": "Occidental College content including the Japanese American Relocation collection, the Stereograph collection, the Bill Henry collection, the Railroading collection, Occidental College's Environmental Design collection, and the Barack Obama, U.S. President and Alumnus collection.",
-		"categories": ["image"],
-                "thumbnail": "https://sites.oxy.edu/marketing/oxy-logo/occidental-logo.png"
-	},
-	{
 		"title": "The Metropolitan Museum of Art",
 		"parser":"themet",
 		"url":"http://www.metmuseum.org",
 		"subtitle": "Works of art spanning five thousand years of world culture, from prehistory to the present and from every part of the globe.",
-		"categories": ["image"]
-	},
-	{
-		"title": "eBird",
-		"parser":"ebird",
-		"url":"https://ebird.org",
-		"subtitle": "Discover a new world of birding",
 		"categories": ["image"]
 	},
 	{
