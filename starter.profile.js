@@ -74,14 +74,6 @@ profile({
 		"categories": ["image"]
 	},
 	{
-		"title": "Voyages: Trans-Atlantic Slave Trade Database",
-		"parser":"django-images",
-		"url":"http://www.slavevoyages.org",
-		"subtitle": "Info on almost 36,000 slaving voyages that forcibly embarked over 10 million Africans for transport to the Americas between the sixteenth and nineteenth centuries.",
-		"categories": ["image"],
-		"thumbnail": "https://www.neh.gov/sites/default/files/inline-files/NEH-Preferred-Seal820.jpg"
-	},
-	{
 		"title": "USC Digital Library",
 		"parser":"contentdm",
 		"url":"http://digitallibrary.usc.edu",
