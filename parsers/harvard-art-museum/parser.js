@@ -7,9 +7,36 @@
     	model.fetch('json');
     };
 
+    $.getScript('https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js', function(){
+        var bootstrapToggleCss = $("<link>", {
+            rel: "stylesheet",
+            type: "text/css",
+            href: "https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+        })
+        bootstrapToggleCss.appendTo("head");
+        var hamSearchHtml = '<div class="row" id="ham-search"><div class="form-check"><input type="checkbox" checked class="form-check-input" id="use-iiif" data-toggle="toggle" data-results="false"></div></div>';
+        $('#search_results').before(hamSearchHtml);
+        $(function(){
+            $('#use-iiif').bootstrapToggle({
+                on:"Use IIIF",
+                off:"Use Image"
+            });
+        })
+        $('#use-iiif').change(function(){
+            if($(this).data("results") == "true"){
+                $(".glyphicon-search").click();
+            }
+        })
+    })
+
+
+
     function parse(data, archive) {
         console.log(data);
         console.log(archive);
+
+        $('#use-iiif').data("results", "true");
+        var useIIIF = $('#use-iiif').is(":checked");
 
         var results = {};
 
@@ -23,6 +50,7 @@
         // [] TODO: fix bug of results not clearing when swapping collections
         // [] TODO: figure out why ternary expression break things ...
         // [] TODO: see if there is a better way to format dcterms:date, as Scalar doesn't seem to fully respect a range (using slash) as defined here https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
+        // [] TODO: fix 'single' and 'next'
 
         data.records.forEach(function(record){
             var id = record.id;
@@ -167,7 +195,7 @@
                 'http://simile.mit.edu/2003/10/ontologies/artstor#sourceLocation': [{type:'uri', value:uri}]
             }
             // IIIF or image
-            if(iiif_manifest_url.length > 0){
+            if(useIIIF && iiif_manifest_url.length > 0){
                 results[uri]['http://simile.mit.edu/2003/10/ontologies/artstor#url'] = [{type:'uri',value:iiif_manifest_url}];
             } else if ('undefined' != typeof(iiif_full)) {
                 results[uri]['http://simile.mit.edu/2003/10/ontologies/artstor#url'] = [{type:'uri',value:iiif_full}];
@@ -175,7 +203,6 @@
 
 
             // Optional / inconsistent properties here
-            // if('undefined'!=typeof(iiif_full)) results[uri]['http://simile.mit.edu/2003/10/ontologies/artstor#url'] = [{type:'uri',value:iiif_full}]; // This is the source one
             if('undefined'!=typeof(iiif_thumb)) results[uri]['http://simile.mit.edu/2003/10/ontologies/artstor#thumbnail'] = [{type:'uri',value:iiif_thumb}];
             if('undefined'!=typeof(accession)) results[uri]['http://purl.org/dc/terms/accrualMethod'] = [{type:'literal', value:accession}];
             if('undefined'!=typeof(accessionyear)) results[uri]['http://purl.org/dc/terms/available'] = [{type:'literal', value:accessionyear}];
