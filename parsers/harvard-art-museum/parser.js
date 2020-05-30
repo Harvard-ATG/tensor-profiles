@@ -35,6 +35,15 @@
                 var iiif_full = `${iiifbaseuri}/full/full/0/default.jpg`
             }
 
+            var iiif_manifest_url = '';
+            if('seeAlso' in record){
+                record.seeAlso.forEach(function(item){
+                    if(item.type=="IIIF Manifest"){
+                        iiif_manifest_url = `${item.id}?iiif-manifest=1`;
+                    }
+                })
+            }
+
             var title = record.title;
             var desc = record.description;
             var primaryimageurl = record.primaryimageurl;
@@ -157,8 +166,16 @@
                 'http://purl.org/dc/terms/source':[{type:'literal',value: "Harvard Art Museum"}],
                 'http://simile.mit.edu/2003/10/ontologies/artstor#sourceLocation': [{type:'uri', value:uri}]
             }
+            // IIIF or image
+            if(iiif_manifest_url.length > 0){
+                results[uri]['http://simile.mit.edu/2003/10/ontologies/artstor#url'] = [{type:'uri',value:iiif_manifest_url}];
+            } else if ('undefined' != typeof(iiif_full)) {
+                results[uri]['http://simile.mit.edu/2003/10/ontologies/artstor#url'] = [{type:'uri',value:iiif_full}];
+            }
+
+
             // Optional / inconsistent properties here
-            if('undefined'!=typeof(iiif_full)) results[uri]['http://simile.mit.edu/2003/10/ontologies/artstor#url'] = [{type:'uri',value:iiif_full}];
+            // if('undefined'!=typeof(iiif_full)) results[uri]['http://simile.mit.edu/2003/10/ontologies/artstor#url'] = [{type:'uri',value:iiif_full}]; // This is the source one
             if('undefined'!=typeof(iiif_thumb)) results[uri]['http://simile.mit.edu/2003/10/ontologies/artstor#thumbnail'] = [{type:'uri',value:iiif_thumb}];
             if('undefined'!=typeof(accession)) results[uri]['http://purl.org/dc/terms/accrualMethod'] = [{type:'literal', value:accession}];
             if('undefined'!=typeof(accessionyear)) results[uri]['http://purl.org/dc/terms/available'] = [{type:'literal', value:accessionyear}];
