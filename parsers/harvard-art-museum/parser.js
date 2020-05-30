@@ -24,14 +24,11 @@
         // [] TODO: figure out why ternary expression break things ...
         // [] TODO: see if there is a better way to format dcterms:date, as Scalar doesn't seem to fully respect a range (using slash) as defined here https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
 
-        var uniqueRoles = new Set();
-
         data.records.forEach(function(record){
             var id = record.id;
             var permalink = `https://hvrd.art/o/${id}`;
             var uri = record.url;
 
-            // console.log(id);
             if(record.images && record.images.length>0){
                 var iiifbaseuri = record.images[0].iiifbaseuri;
                 var iiif_thumb = `${iiifbaseuri}/full/!225,225/0/default.jpg`
@@ -155,22 +152,7 @@
 
             // Properties that always exist here
             results[uri] = {
-                // 'http://simile.mit.edu/2003/10/ontologies/artstor#url':[{type:'uri',value:primaryimageurl}],
-                // 'http://simile.mit.edu/2003/10/ontologies/artstor#url':[{type:'uri',value:iiif_full}],
                 'http://purl.org/dc/terms/title':[{type:'literal',value:title}],
-                // 'http://simile.mit.edu/2003/10/ontologies/artstor#thumbnail':[{type:'uri',value:primaryimageurl}],
-                // 'http://simile.mit.edu/2003/10/ontologies/artstor#thumbnail':[{type:'uri',value:iiif_thumb}],
-                // 'http://purl.org/dc/terms/accrualMethod': [{type:'literal', value:accession}],
-                // 'http://purl.org/dc/terms/accessRights': [{type:'literal', value:access}],
-                // 'http://purl.org/dc/terms/available': [{type:'literal', value: accessionyear}],
-                // 'http://purl.org/dc/terms/coverage': [{type:'literal', value: culture}],
-                // 'http://purl.org/dc/terms/created': [{type:'literal', value: created}],
-                // 'http://purl.org/dc/terms/medium': [{type:'literal', value: medium}],
-                // 'http://purl.org/dc/terms/format': [{type:'literal', value: dimensions}], // May need this for type parsing?
-                // 'http://purl.org/dc/terms/provenance': [{type:'literal', value:provenance}],
-                // 'http://purl.org/dc/terms/rights': [{type:'literal', value:copyright}],
-                // 'http://purl.org/dc/terms/rightsHolder': [{type:'literal', value:creditline}],
-                // 'http://purl.org/dc/terms/type': [{type:'literal', value:classification}],
                 'http://purl.org/dc/terms/identifier':[{type:'uri',value:id}],
                 'http://purl.org/dc/terms/source':[{type:'literal',value: "Harvard Art Museum"}],
                 'http://simile.mit.edu/2003/10/ontologies/artstor#sourceLocation': [{type:'uri', value:uri}]
