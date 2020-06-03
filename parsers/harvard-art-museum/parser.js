@@ -3,9 +3,47 @@
     $.fn.parse = function(options) {
     	if (!options.query.length) throw "Enter at least one term into the search field.";
     	var model = new $.fn.spreadsheet_model(options);
+        console.log("OPTIONS");
+        console.log(options);
+        // if(options.single){
+        //     let item = options.query;
+        //     let id = item.split("/").pop();
+        //     console.log("Single");
+        // }
     	model.parse = parse;
     	model.fetch('json');
     };
+
+    // if (!$("link[href='https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css']").length){
+    //   $.getScript('https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js', function(){
+    //       var bootstrapToggleCss = $("<link>", {
+    //           rel: "stylesheet",
+    //           type: "text/css",
+    //           href: "https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+    //       })
+    //       bootstrapToggleCss.appendTo("head");
+    //     });
+    //     addIIIFToggle();
+    // } else {
+    //     addIIIFToggle();
+    // }
+    //
+    // function addIIIFToggle(){
+    //   $("#ham-search").remove();
+    //   var hamSearchHtml = '<div class="row" id="ham-search"><div class="form-check"><input type="checkbox" checked class="form-check-input" id="use-iiif" data-toggle="toggle" data-results="false"></div></div>';
+    //   $('#search_results').before(hamSearchHtml);
+    //   $(function(){
+    //       $('#use-iiif').bootstrapToggle({
+    //           on:"Use IIIF",
+    //           off:"Use Image"
+    //       });
+    //   })
+    //   $('#use-iiif').change(function(){
+    //       if($(this).data("results") == "true"){
+    //           $(".glyphicon-search").click();
+    //       }
+    //   })
+    // }
 
     $.getScript('https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js', function(){
         var bootstrapToggleCss = $("<link>", {
@@ -13,7 +51,10 @@
             type: "text/css",
             href: "https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
         })
-        bootstrapToggleCss.appendTo("head");
+        if (!$("link[href='https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css']").length){
+            bootstrapToggleCss.appendTo("head");
+        }
+        $("#ham-search").remove();
         var hamSearchHtml = '<div class="row" id="ham-search"><div class="form-check"><input type="checkbox" checked class="form-check-input" id="use-iiif" data-toggle="toggle" data-results="false"></div></div>';
         $('#search_results').before(hamSearchHtml);
         $(function(){
@@ -26,6 +67,9 @@
             if($(this).data("results") == "true"){
                 $(".glyphicon-search").click();
             }
+        })
+        $('#search_close').click(function(){
+            $("#ham-search").remove();
         })
     })
 
@@ -50,7 +94,8 @@
         // [] TODO: fix bug of results not clearing when swapping collections
         // [] TODO: figure out why ternary expression break things ...
         // [] TODO: see if there is a better way to format dcterms:date, as Scalar doesn't seem to fully respect a range (using slash) as defined here https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
-        // [] TODO: fix 'single' and 'next'
+        // [X] TODO: fix 'single'
+        // [X] TODO: fix 'next'
 
         data.records.forEach(function(record){
             var id = record.id;
