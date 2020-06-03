@@ -78,6 +78,9 @@
     function parse(data, archive) {
         console.log(data);
         console.log(archive);
+        console.log("opts");
+        console.log(this);
+        console.log(this.opts);
 
         $('#use-iiif').data("results", "true");
         var useIIIF = $('#use-iiif').is(":checked");
@@ -89,7 +92,7 @@
         // [x] TODO: Would be nice to have a lower res thumbnails to load faster, maybe use IIIF?
         // [] TODO: fix detail view
         // [] TODO: better search (in different fields?)
-        // [x] TODO: fix stretching of images
+        // [] TODO: fix stretching of images
         // [x] TODO: there's a bug when displaying title in "Tile" view - renders as [object HTMLCollection]
         // [] TODO: fix bug of results not clearing when swapping collections
         // [] TODO: figure out why ternary expression break things ...
@@ -135,21 +138,20 @@
 
             var placesArr = record.places;
             if(placesArr){
-                places = '';
+                places = [];
                 placesArr.forEach(function(place){
                     str = `${place.displayname} (${place.type})`;
-                    if(places.length > 0){
-                        places += `; ${str}`
-                    } else {
-                        places = str;
-                    }
+                    places.push({
+                        type: "literal",
+                        value: str
+                    });
                 })
             }
 
             var creatorRoles = ["Artist", "Painter", "Designer"];
-            creators = '';
-            contributors = '';
             if(record.people){
+                creators = [];
+                contributors = [];
                 record.people.forEach(function(person){
                     var str = '';
                     if(person.displayname) str += `${person.displayname} `;
@@ -157,22 +159,21 @@
                     if(person.role) str += `Role: ${person.role} `;
                     if(person.personid) str += `[HAM_id ${person.personid}] `;
 
-                    // TODO figure out how to have multiple DC terms for people
-
                     if(creatorRoles.includes(person.role)){
-                        if(creators.length ==0){
-                            creators += str;
-                        } else {
-                            creators += `; ${str}`;
-                        }
+                        creators.push({
+                            type: "literal",
+                            value: str
+                        });
                     } else {
-                        if(contributors.length == 0){
-                            contributors += str;
-                        } else {
-                            contributors += `; ${str}`;
-                        }
+                        contributors.push({
+                            type: "literal",
+                            value: str
+                        });
                     }
                 });
+            }
+            if(creators.length > 1 || contributors.length > 1){
+                console.log(record.title);
             }
 
             if(record.culture) var culture = `Culture: ${record.culture}`;
@@ -261,11 +262,10 @@
             if('undefined'!=typeof(copyright)) results[uri]['http://purl.org/dc/terms/rights'] = [{type:'literal', value:copyright}];
             if('undefined'!=typeof(creditline)) results[uri]['http://purl.org/dc/terms/rightsHolder'] = [{type:'literal', value:creditline}];
             if('undefined'!=typeof(classification)) results[uri]['http://purl.org/dc/terms/type'] = [{type:'literal', value:classification}];
-            if(creators.length > 0) results[uri]['http://purl.org/dc/elements/1.1/creator'] = [{type:'literal', value:creators}];
-            if(contributors.length>0) results[uri]['http://purl.org/dc/elements/1.1/contributor'] = [{type:'literal', value:contributors}];
-            if('undefined'!=typeof(places) && places.length>0) results[uri]['http://purl.org/dc/terms/spatial'] = [{type:'literal', value:places}];
-
             if (desc && desc.length) results[uri]['http://purl.org/dc/terms/description'] = [{type:'literal',value:desc}];
+            if('undefined'!=typeof(places) && places.length>0) results[uri]['http://purl.org/dc/terms/spatial'] = places;
+            if('undefined'!=typeof(creators) && creators.length > 0) results[uri]['http://purl.org/dc/elements/1.1/creator'] = creators;
+            if('undefined'!=typeof(contribtors) && contributors.length>0) results[uri]['http://purl.org/dc/elements/1.1/contributor'] = contributors;
         })
 
         console.log(results);
