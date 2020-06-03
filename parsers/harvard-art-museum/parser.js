@@ -137,8 +137,8 @@
             var creditline = record.creditline;
 
             var placesArr = record.places;
+            places = [];
             if(placesArr){
-                places = [];
                 placesArr.forEach(function(place){
                     str = `${place.displayname} (${place.type})`;
                     places.push({
@@ -149,9 +149,9 @@
             }
 
             var creatorRoles = ["Artist", "Painter", "Designer"];
+            creators = [];
+            contributors = [];
             if(record.people){
-                creators = [];
-                contributors = [];
                 record.people.forEach(function(person){
                     var str = '';
                     if(person.displayname) str += `${person.displayname} `;
@@ -249,23 +249,23 @@
 
 
             // Optional / inconsistent properties here
-            if('undefined'!=typeof(iiif_thumb)) results[uri]['http://simile.mit.edu/2003/10/ontologies/artstor#thumbnail'] = [{type:'uri',value:iiif_thumb}];
-            if('undefined'!=typeof(accession)) results[uri]['http://purl.org/dc/terms/accrualMethod'] = [{type:'literal', value:accession}];
-            if('undefined'!=typeof(accessionyear)) results[uri]['http://purl.org/dc/terms/available'] = [{type:'literal', value:accessionyear}];
-            if(access.length > 0) results[uri]['http://purl.org/dc/terms/accessRights'] = [{type:'literal', value:access}];
-            if('undefined'!=typeof(culture)) results[uri]['http://purl.org/dc/terms/coverage'] = [{type:'literal', value:culture}];
-            if('undefined'!=typeof(created)) results[uri]['http://purl.org/dc/terms/created'] = [{type:'literal', value:created}];
-            if('undefined'!=typeof(date) && date.length>0) results[uri]['http://purl.org/dc/terms/date'] = [{type:'literal', value:date}];
-            if('undefined'!=typeof(medium)) results[uri]['http://purl.org/dc/terms/medium'] = [{type:'literal', value:medium}];
-            if('undefined'!=typeof(dimensions)) results[uri]['http://purl.org/dc/terms/format'] = [{type:'literal', value:dimensions}];
-            if('undefined'!=typeof(provenance)) results[uri]['http://purl.org/dc/terms/provenance'] = [{type:'literal', value:provenance}];
-            if('undefined'!=typeof(copyright)) results[uri]['http://purl.org/dc/terms/rights'] = [{type:'literal', value:copyright}];
-            if('undefined'!=typeof(creditline)) results[uri]['http://purl.org/dc/terms/rightsHolder'] = [{type:'literal', value:creditline}];
-            if('undefined'!=typeof(classification)) results[uri]['http://purl.org/dc/terms/type'] = [{type:'literal', value:classification}];
-            if (desc && desc.length) results[uri]['http://purl.org/dc/terms/description'] = [{type:'literal',value:desc}];
-            if('undefined'!=typeof(places) && places.length>0) results[uri]['http://purl.org/dc/terms/spatial'] = places;
-            if('undefined'!=typeof(creators) && creators.length > 0) results[uri]['http://purl.org/dc/elements/1.1/creator'] = creators;
-            if('undefined'!=typeof(contribtors) && contributors.length>0) results[uri]['http://purl.org/dc/elements/1.1/contributor'] = contributors;
+            if(iiif_thumb != null) results[uri]['http://simile.mit.edu/2003/10/ontologies/artstor#thumbnail'] = [{type:'uri',value:iiif_thumb}];
+            if(accession != null) results[uri]['http://purl.org/dc/terms/accrualMethod'] = [{type:'literal', value:accession}];
+            if(accessionyear != null) results[uri]['http://purl.org/dc/terms/available'] = [{type:'literal', value:accessionyear}];
+            if(access != null && access.length > 0) results[uri]['http://purl.org/dc/terms/accessRights'] = [{type:'literal', value:access}];
+            if(culture != null) results[uri]['http://purl.org/dc/terms/coverage'] = [{type:'literal', value:culture}];
+            if(created != null) results[uri]['http://purl.org/dc/terms/created'] = [{type:'literal', value:created}];
+            if(date != null && date.length>0) results[uri]['http://purl.org/dc/terms/date'] = [{type:'literal', value:date}];
+            if(medium != null) results[uri]['http://purl.org/dc/terms/medium'] = [{type:'literal', value:medium}];
+            if(dimensions != null) results[uri]['http://purl.org/dc/terms/format'] = [{type:'literal', value:dimensions}];
+            if(provenance != null) results[uri]['http://purl.org/dc/terms/provenance'] = [{type:'literal', value:provenance}];
+            if(copyright != null) results[uri]['http://purl.org/dc/terms/rights'] = [{type:'literal', value:copyright}];
+            if(creditline != null) results[uri]['http://purl.org/dc/terms/rightsHolder'] = [{type:'literal', value:creditline}];
+            if(classification != null) results[uri]['http://purl.org/dc/terms/type'] = [{type:'literal', value:classification}];
+            if(desc != null && desc.length) results[uri]['http://purl.org/dc/terms/description'] = [{type:'literal',value:desc}];
+            if(places.length>0) results[uri]['http://purl.org/dc/terms/spatial'] = places;
+            if(creators.length > 0) results[uri]['http://purl.org/dc/elements/1.1/creator'] = creators;
+            if(contributors.length>0) results[uri]['http://purl.org/dc/elements/1.1/contributor'] = contributors;
         })
 
         console.log(results);
