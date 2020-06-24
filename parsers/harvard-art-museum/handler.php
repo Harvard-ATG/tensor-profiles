@@ -12,7 +12,7 @@ if($single){
   $id = end($exploded);
   $url = 'https://api.harvardartmuseums.org/object?apikey=' . $key . '&fields=' . $fields . '&q=id:' . $id;
 } else {
-  $url = 'https://api.harvardartmuseums.org/object?apikey=' . $key . '&size=100&keyword=' . $query .'&fields=' . $fields . '&page=' . $page;
+  $url = 'https://api.harvardartmuseums.org/object?apikey=' . $key . '&size=10&keyword=' . $query .'&fields=' . $fields . '&page=' . $page;
 }
 
 
