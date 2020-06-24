@@ -74,7 +74,7 @@
     })
 
     // Good geocoding
-    var googleMapsApiKey = 'AIzaSyBC5sOppg0EsI9g5-QA9H8UqK-NAhRk1Gw';
+    var googleMapsApiKey = '';
     var googleMapsLibrary = $("<script>", {
         type: "text/javascript",
         src: `https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&libraries=places`
